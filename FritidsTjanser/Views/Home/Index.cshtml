@@ -1,0 +1,38 @@
+﻿@model FritidsTjanser.Models.ServiceModel
+@{
+    ViewBag.Title = "FritidsTjans";
+}
+
+
+<body style="background-color: lightskyblue">
+    <div style="text-align: center">
+        <h1>Velkommen til Fritidstjanser.dk</h1>
+        <h2>Her kan du søge efter fritidstjanser</h2>
+    </div>
+    <br />
+    @* Html form to search service based on zipcode *@
+    @using (Html.BeginForm("GetServices", "Service", FormMethod.Get))
+    {
+        <div class="container" style="margin-bottom: 2rem">
+            <div class="row">
+                <div style="justify-content: center">
+                    <label for="serviceSearch">Indtast postnummer her:</label><br />
+                    <div id="">
+                        @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-success" type="submit" value="Søg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="serviceList">
+            
+        </div>
+    }
+    <script>
+        url = "@Url.Action("GetServices", "Service")";
+        $("#serviceList").load(url);
+    </script>
+</body>
